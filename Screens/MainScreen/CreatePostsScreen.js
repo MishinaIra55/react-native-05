@@ -1,49 +1,58 @@
 import React from "react";
-import {View, Text, StyleSheet,  Image} from "react-native";
+import {View,  StyleSheet} from "react-native";
+import {Camera} from 'expo-camera';
+import {TouchableOpacity} from "react-native-gesture-handler";
+import Photo from "../../assets/images/camera.svg";
 
 export const CreateScreen = () => {
     return (
         <View style={styles.container}>
-            <View
-                style={styles.avatar}
-            >
-                <Image
-                    source={require("../../assets/images/avatarcreat.svg")}
-                    style={styles.avatarBtn}
-                />
-            </View>
-            <Text>Загрузите фото</Text>
+            <Camera style={styles.camera}>
+                <TouchableOpacity
+                    style={styles.cameraContainer}
+                    onPress={() => {
+                }}>
+                    <Photo/>
+                </TouchableOpacity>
+            </Camera>
         </View>
     );
 };
 
+
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#ffffff"
+        backgroundColor: "#ffffff",
+        paddingTop: 32,
+        paddingLeft: 16,
+        paddingRight: 16,
     },
-    avatar: {
-        position: "relative",
-        // top: -60,
-        // transform: [{ translateX: -60 }],
+    //not work border background for camera
+    camera: {
         height: 240,
-        width: 343,
-        backgroundColor: "#F6F6F6",
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: "#E8E8E8",
-        marginTop: 32,
         alignItems: "center",
-        justifyContent: "center",
+        overflow:'hidden',
+        borderRadius: 8,
+        backgroundColor: '#BDBDBD',
+
     },
-    avatarBtn: {
-        position: "absolute",
-        top: 50,
-        // right: -13,
-        height: 60,
+    // cameraBtn: {
+    //     height:24,
+    //     width: 24,
+    //     backgroundColor: '#BDBDBD',
+    //     alignItems: "center",
+    //     justifyContent: "center",
+    // },
+    cameraContainer: {
+        marginTop: 90,
+        borderWidth: 1,
+        backgroundColor: "#FFFFFF",
         width: 60,
-        color:"#562",
-    },
+        height: 60,
+        borderRadius: 50,
+        justifyContent: "center",
+        alignItems: "center",
+    }
 });
