@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
     StyleSheet,
     View,
+    Image,
     ImageBackground,
     TextInput,
     TouchableWithoutFeedback,
@@ -10,31 +11,36 @@ import {
     Platform,
     TouchableOpacity,
     Text,
+    Dimensions,
 } from "react-native";
 
-export const LoginScreen = ({ navigation }) => {
+
+
+export const RegistrationScreen = ({ navigation }) => {
+    const [login, setLogin] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isPassHidden, setIsPassHidden] = useState(true);
     const [isKeyboardShown, setIsKeyboardShown] = useState(false);
 
+    const loginHandler = (value) => setLogin(value);
     const emailHandler = (value) => setEmail(value);
     const passwordHandler = (value) => setPassword(value);
     const showPassHandler = () => setIsPassHidden(!isPassHidden);
 
     const onLogin = () => {
-        console.log(`Email: ${email}, Password: ${password}`);
+        console.log(`Login: ${login}, Email: ${email}, Password: ${password}`);
         Keyboard.dismiss();
+        setLogin("");
         setEmail("");
         setPassword("");
-        navigation.navigate('Home');
-
+        // navigation.navigate('Home');
     };
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <ImageBackground
-                source={require("../assets/images/background.png")}
+                source={require("../../assets/images/background.png")}
                 style={styles.bgImage}
             >
                 <KeyboardAvoidingView
@@ -43,11 +49,31 @@ export const LoginScreen = ({ navigation }) => {
                     <View
                         style={{
                             ...styles.wrapper,
-                            paddingBottom: isKeyboardShown ? 32 : 144,
+                            paddingBottom: isKeyboardShown ? 38 : 144,
                         }}
                     >
-                        <Text style={styles.heading}>Войти</Text>
+                        <View
+                            style={{
+                                ...styles.avatar,
+                                left: Dimensions.get("window").width / 2,
+                            }}
+                        >
+                            <Image
+                                source={require("../../assets/images/add.svg")}
+                                style={styles.avatarBtn}
+                            />
+                        </View>
+                        <Text style={styles.heading}>Регистрация</Text>
                         <View style={styles.form}>
+                            <TextInput
+                                value={login}
+                                onChangeText={loginHandler}
+                                placeholder="Логин"
+                                style={{ ...styles.input, marginBottom: 16 }}
+                                onFocus={() => setIsKeyboardShown(true)}
+                                onBlur={() => setIsKeyboardShown(false)}
+                            />
+
                             <TextInput
                                 value={email}
                                 onChangeText={emailHandler}
@@ -82,13 +108,17 @@ export const LoginScreen = ({ navigation }) => {
                                 onPress={onLogin}
                                 activeOpacity={0.8}
                             >
-                                <Text style={styles.btnText}>Войти</Text>
+                                <Text style={styles.btnText}>Зарегистрироваться</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                onPress={()=> navigation.navigate('Registration')}
+                                onPress={()=> navigation.navigate('Login')}
                                 activeOpacity={0.8}>
                                 <Text
-                                    style={styles.signInText}>Нет аккаунта? Зарегистрироваться</Text>
+                                    style={styles.signInText}
+
+                                >
+                                    Уже есть аккаунт? Войти
+                                </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -105,10 +135,28 @@ const styles = StyleSheet.create({
         resizeMode: "cover",
     },
     wrapper: {
-        paddingTop: 32,
+        paddingTop: 92,
         backgroundColor: "#fff",
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
+    },
+
+    avatar: {
+        position: "absolute",
+        top: -60,
+        transform: [{ translateX: -60 }],
+        height: 120,
+        width: 120,
+        backgroundColor: "#F6F6F6",
+        borderRadius: 16,
+    },
+
+    avatarBtn: {
+        position: "absolute",
+        bottom: 15,
+        right: -13,
+        height: 25,
+        width: 25,
     },
 
     heading: {

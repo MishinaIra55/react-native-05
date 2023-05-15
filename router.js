@@ -6,11 +6,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 
-import {RegistrationScreen} from "./Screens/RegistrationScreen";
-import {LoginScreen} from "./Screens/LoginScreen";
-import {PostsScreen} from "./Screens/MainScreen/PostsScreen";
-import {CreateScreen} from "./Screens/MainScreen/CreateScreen";
-import {ProfileScreen} from "./Screens/MainScreen/ProfileScreen";
+import {RegistrationScreen} from "./Screens/auth/RegistrationScreen";
+import {LoginScreen} from "./Screens/auth/LoginScreen";
+import {PostsScreen} from "./Screens/mainScreen/PostsScreen";
+import {CreateScreen} from "./Screens/mainScreen/CreateScreen";
+import {ProfileScreen} from "./Screens/mainScreen/ProfileScreen";
 
 
 import GridIcon from './assets/images/grid.svg';
@@ -18,7 +18,7 @@ import User from './assets/images/user.svg';
 import PlusIcon from './assets/images/plus.svg';
 import LogoutIcon from './assets/images/logout.svg';
 
-import {Home} from "./Screens/Home";
+
 import {TouchableOpacity} from "react-native-gesture-handler";
 
 const HeaderLogOut = () => (
@@ -43,11 +43,7 @@ export const useRoute = (isAuth) => {
                     }}
                     name="Login"
                     component={LoginScreen} />
-                <AuthStack.Screen
-                    name='Home'
-                    component={Home}
-                    options={{headerShown: false}}
-                />
+
             </AuthStack.Navigator>
 
         );
@@ -72,7 +68,7 @@ export const useRoute = (isAuth) => {
                         />
                     ),
 
-                    title: "Публикации",
+                    // title: "Публикации",
                     headerTintColor: "#212121",
                     headerTitleStyle: {
                         fontWeight: "bold",
